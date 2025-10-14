@@ -1,99 +1,196 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Microscope, Heart, Droplets, Zap, Shield, Activity, ArrowRight } from "lucide-react"
+import { MessageCircle, ChevronLeft, ChevronRight } from "lucide-react"
+import Image from "next/image"
+import { useState, useEffect } from "react"
 
 const services = [
   {
-    icon: Droplets,
-    title: "Análisis de Sangre",
-    description: "Hemograma completo, bioquímica sanguínea, perfil lipídico y más.",
-    studies: ["Hemograma", "Glucemia", "Colesterol", "Triglicéridos"],
+    title: "Evaluación endocrinológica completa",
+    description: "Control integral de tus hormonas para cuidar tu metabolismo y energía.",
+    image: "/Evaluación endocrinológica completa.png",
   },
   {
-    icon: Microscope,
-    title: "Microbiología",
-    description: "Cultivos, antibiogramas y estudios bacteriológicos especializados.",
-    studies: ["Urocultivo", "Coprocultivo", "Cultivo de secreciones"],
+    title: "Detección de marcadores tumorales en sangre",
+    description: "Análisis preventivos que ayudan al diagnóstico temprano.",
+    image: "/Detección de marcadores tumorales en sangre.png",
   },
   {
-    icon: Heart,
-    title: "Cardiología",
-    description: "Marcadores cardíacos y estudios especializados del corazón.",
-    studies: ["Troponinas", "CK-MB", "BNP", "Dímero D"],
+    title: "Estudios bacteriológicos y virales",
+    description: "Detección rápida de Covid-19, Dengue, Influenza A y B, Streptococos.",
+    image: "/Estudios bacteriológicos y virales.png",
   },
   {
-    icon: Zap,
-    title: "Pruebas Rápidas",
-    description: "Resultados inmediatos para diagnósticos urgentes.",
-    studies: ["Test de Dengue", "COVID-19", "Embarazo", "Strep A"],
-  },
-  {
-    icon: Shield,
-    title: "Inmunología",
-    description: "Estudios del sistema inmunológico y marcadores tumorales.",
-    studies: ["Hepatitis", "VIH", "PSA", "Tiroides"],
-  },
-  {
-    icon: Activity,
-    title: "Hormonas",
-    description: "Perfil hormonal completo y estudios endocrinológicos.",
-    studies: ["TSH", "T4", "Cortisol", "Insulina"],
+    title: "Pruebas virológicas y de rutina",
+    description: "Exámenes clínicos esenciales para el seguimiento de tu salud.",
+    image: "/Pruebas virológicas y de rutina.png",
   },
 ]
 
 export function ServicesSection() {
+  const [currentIndex, setCurrentIndex] = useState(services.length) // Empezamos desde el segundo conjunto
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  
+  const nextSlide = () => {
+    if (isTransitioning) return
+    setIsTransitioning(true)
+    setCurrentIndex((prevIndex) => prevIndex + 1)
+    
+    // Reset position si llegamos al final
+    setTimeout(() => {
+      if (currentIndex >= services.length * 2) {
+        setCurrentIndex(services.length)
+      }
+      setIsTransitioning(false)
+    }, 500)
+  }
+  
+  const prevSlide = () => {
+    if (isTransitioning) return
+    setIsTransitioning(true)
+    setCurrentIndex((prevIndex) => prevIndex - 1)
+    
+    // Reset position si llegamos al principio
+    setTimeout(() => {
+      if (currentIndex <= 0) {
+        setCurrentIndex(services.length)
+      }
+      setIsTransitioning(false)
+    }, 500)
+  }
+
+  // Auto-play functionality
+  useEffect(() => {
+    if (!isAutoPlaying) return
+
+    const interval = setInterval(() => {
+      nextSlide()
+    }, 4000) // Cambia cada 4 segundos
+
+    return () => clearInterval(interval)
+  }, [isAutoPlaying, currentIndex])
+
+  // Pausar auto-play cuando el usuario interactúa
+  const handleUserInteraction = () => {
+    setIsAutoPlaying(false)
+    // Reanudar auto-play después de 10 segundos de inactividad
+    setTimeout(() => setIsAutoPlaying(true), 10000)
+  }
+
+  const handleServiceClick = (service: typeof services[0]) => {
+    const message = `Hola, me interesa obtener más información sobre: ${service.title}. ¿Podrían ayudarme con los detalles y requisitos?`
+    const encodedMessage = encodeURIComponent(message)
+    window.open(`https://wa.me/543865650673?text=${encodedMessage}`, '_blank')
+  }
+
   return (
-    <section className="py-20 bg-muted/30">
+    <section id="services" className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-accent mb-4">Nuestros Servicios</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-            Ofrecemos una amplia gama de análisis clínicos con la más alta precisión y tecnología de vanguardia.
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto text-pretty leading-relaxed">
+            En Laboratorio Concepción realizamos estudios que cuidan tu salud con la precisión que necesitás.
+            Desde controles de rutina hasta pruebas específicas, te acompañamos en cada paso.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {services.map((service, index) => {
-            const IconComponent = service.icon
-            return (
-              <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
-                <CardHeader>
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <IconComponent className="h-6 w-6 text-primary" />
+        {/* Carrusel */}
+        <div className="relative max-w-6xl mx-auto mb-12 px-8">
+          {/* Botones de navegación */}
+          <Button
+            variant="outline"
+            size="icon"
+            className="absolute -left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white border-2 border-gray-600 text-gray-800 shadow-lg hover:bg-gray-100 hover:border-gray-700"
+            onClick={() => {
+              prevSlide()
+              handleUserInteraction()
+            }}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          
+          <Button
+            variant="outline"
+            size="icon"
+            className="absolute -right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white border-2 border-gray-600 text-gray-800 shadow-lg hover:bg-gray-100 hover:border-gray-700"
+            onClick={() => {
+              nextSlide()
+              handleUserInteraction()
+            }}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+
+          {/* Contenedor del carrusel */}
+          <div className="overflow-hidden rounded-lg">
+            <div 
+              className="flex transition-transform duration-500 ease-in-out"
+              style={{ transform: `translateX(-${currentIndex * (100 / 3)}%)` }}
+            >
+              {/* Duplicamos los servicios para crear un bucle infinito */}
+              {[...services, ...services, ...services].map((service, index) => (
+                <div key={`${service.title}-${index}`} className="w-1/3 flex-shrink-0 px-2">
+                  <Card 
+                    className="hover:shadow-lg transition-all duration-300 overflow-hidden h-[400px] cursor-pointer hover:scale-[1.02] flex flex-col bg-white"
+                    onClick={() => handleServiceClick(service)}
+                  >
+                    <div className="relative h-44 w-full flex-shrink-0">
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
-                    <CardTitle className="text-xl">{service.title}</CardTitle>
-                  </div>
-                  <CardDescription className="text-base">{service.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2 mb-4">
-                    {service.studies.map((study, studyIndex) => (
-                      <div key={studyIndex} className="text-sm text-muted-foreground flex items-center">
-                        <div className="w-1.5 h-1.5 bg-primary rounded-full mr-2" />
-                        {study}
-                      </div>
-                    ))}
-                  </div>
-                  <Button variant="outline" size="sm" className="w-full bg-transparent">
-                    Solicitar Turno
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </CardContent>
-              </Card>
-            )
-          })}
+                    <CardHeader className="pb-2 flex-shrink-0 px-4 pt-4">
+                      <CardTitle className="text-base font-semibold leading-tight line-clamp-2 min-h-[2.5rem]">
+                        {service.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-0 flex-grow px-4 pb-4">
+                      <CardDescription className="text-sm leading-relaxed">
+                        {service.description}
+                      </CardDescription>
+                    </CardContent>
+                  </Card>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Indicadores */}
+          <div className="flex justify-center mt-6 space-x-2">
+            {services.map((_, index) => (
+              <button
+                key={index}
+                className={`w-2.5 h-2.5 rounded-full transition-colors duration-300 ${
+                  index === (currentIndex % services.length) ? 'bg-yellow-400' : 'bg-gray-300'
+                }`}
+                onClick={() => {
+                  setCurrentIndex(services.length + index)
+                  handleUserInteraction()
+                }}
+              />
+            ))}
+          </div>
         </div>
 
         <div className="text-center">
           <Card className="max-w-2xl mx-auto bg-primary/5 border-primary/20">
             <CardContent className="p-8">
-              <h3 className="text-xl font-serif font-semibold mb-3">¿No encontrás tu estudio?</h3>
+              <h3 className="text-xl font-serif font-semibold mb-3">¿Necesitás otro estudio?</h3>
               <p className="text-muted-foreground mb-4">
-                Contamos con más de 200 tipos de análisis diferentes. Contactanos para consultar por el estudio que
-                necesitás.
+                Consultá por el estudio que necesitás y te brindaremos toda la información.
               </p>
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90">Consultar Estudio</Button>
+              <Button 
+                className="bg-yellow-400 hover:bg-yellow-500 text-gray-800 font-semibold"
+                onClick={() => window.open('https://wa.me/543865650673?text=Hola%2C%20necesito%20informaci%C3%B3n%20sobre%20un%20estudio%20espec%C3%ADfico%20que%20no%20veo%20en%20la%20lista.', '_blank')}
+              >
+                <MessageCircle className="mr-2 h-4 w-4" />
+                Consultar por WhatsApp
+              </Button>
             </CardContent>
           </Card>
         </div>
