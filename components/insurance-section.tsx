@@ -74,18 +74,18 @@ export function InsuranceSection() {
           </div>
 
           {/* Grid de logos optimizado */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4 lg:gap-6">
             {insuranceCompanies.map((company, index) => (
               <div
                 key={index}
-                className="group bg-white rounded-xl p-4 sm:p-5 border-2 border-gray-200 hover:border-yellow-400 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex items-center justify-center aspect-square"
+                className="group bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-5 border-2 border-gray-200 hover:border-yellow-400 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 flex items-center justify-center aspect-square"
               >
                 <div className="relative w-full h-full">
                   <Image
                     src={company.logo}
                     alt={`Logo de ${company.name}`}
                     fill
-                    className="object-contain grayscale group-hover:grayscale-0 transition-all duration-300 p-2"
+                    className="object-contain grayscale group-hover:grayscale-0 transition-all duration-300 p-1 sm:p-2"
                   />
                 </div>
               </div>

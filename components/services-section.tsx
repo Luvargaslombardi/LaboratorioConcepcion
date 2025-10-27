@@ -33,6 +33,7 @@ export function ServicesSection() {
   const [currentIndex, setCurrentIndex] = useState(services.length) // Empezamos desde el segundo conjunto
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [slidesToShow, setSlidesToShow] = useState(3)
   
   const nextSlide = () => {
     if (isTransitioning) return
@@ -61,6 +62,23 @@ export function ServicesSection() {
       setIsTransitioning(false)
     }, 500)
   }
+
+  // Responsive slides calculation
+  useEffect(() => {
+    const updateSlidesToShow = () => {
+      if (window.innerWidth < 640) {
+        setSlidesToShow(1)
+      } else if (window.innerWidth < 1024) {
+        setSlidesToShow(2)
+      } else {
+        setSlidesToShow(3)
+      }
+    }
+
+    updateSlidesToShow()
+    window.addEventListener('resize', updateSlidesToShow)
+    return () => window.removeEventListener('resize', updateSlidesToShow)
+  }, [])
 
   // Auto-play functionality
   useEffect(() => {
@@ -97,46 +115,48 @@ export function ServicesSection() {
         </div>
 
         {/* Carrusel */}
-        <div className="relative max-w-6xl mx-auto mb-12 px-8">
-          {/* Botones de navegación */}
+        <div className="relative max-w-6xl mx-auto mb-12 px-4 sm:px-8">
+          {/* Botones de navegación - Responsive */}
           <Button
             variant="outline"
             size="icon"
-            className="absolute -left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white border-2 border-gray-600 text-gray-800 shadow-lg hover:bg-gray-100 hover:border-gray-700"
+            className="absolute -left-2 sm:-left-4 top-1/2 transform -translate-y-1/2 z-10 bg-white border-2 border-gray-600 text-gray-800 shadow-lg hover:bg-gray-100 hover:border-gray-700 h-8 w-8 sm:h-10 sm:w-10"
             onClick={() => {
               prevSlide()
               handleUserInteraction()
             }}
           >
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeft className="h-3 w-3 sm:h-4 sm:w-4" />
           </Button>
           
           <Button
             variant="outline"
             size="icon"
-            className="absolute -right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white border-2 border-gray-600 text-gray-800 shadow-lg hover:bg-gray-100 hover:border-gray-700"
+            className="absolute -right-2 sm:-right-4 top-1/2 transform -translate-y-1/2 z-10 bg-white border-2 border-gray-600 text-gray-800 shadow-lg hover:bg-gray-100 hover:border-gray-700 h-8 w-8 sm:h-10 sm:w-10"
             onClick={() => {
               nextSlide()
               handleUserInteraction()
             }}
           >
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4" />
           </Button>
 
           {/* Contenedor del carrusel */}
           <div className="overflow-hidden rounded-lg">
             <div 
               className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentIndex * (100 / 3)}%)` }}
+              style={{ 
+                transform: `translateX(-${currentIndex * (100 / slidesToShow)}%)` 
+              }}
             >
               {/* Duplicamos los servicios para crear un bucle infinito */}
               {[...services, ...services, ...services].map((service, index) => (
-                <div key={`${service.title}-${index}`} className="w-1/3 flex-shrink-0 px-2">
+                <div key={`${service.title}-${index}`} className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-1 sm:px-2">
                   <Card 
-                    className="hover:shadow-lg transition-all duration-300 overflow-hidden h-[400px] cursor-pointer hover:scale-[1.02] flex flex-col bg-white"
+                    className="hover:shadow-lg transition-all duration-300 overflow-hidden h-[350px] sm:h-[400px] cursor-pointer hover:scale-[1.02] flex flex-col bg-white"
                     onClick={() => handleServiceClick(service)}
                   >
-                    <div className="relative h-44 w-full flex-shrink-0">
+                    <div className="relative h-32 sm:h-44 w-full flex-shrink-0">
                       <Image
                         src={service.image}
                         alt={service.title}
@@ -144,13 +164,13 @@ export function ServicesSection() {
                         className="object-cover"
                       />
                     </div>
-                    <CardHeader className="pb-2 flex-shrink-0 px-4 pt-4">
-                      <CardTitle className="text-base font-semibold leading-tight line-clamp-2 min-h-[2.5rem]">
+                    <CardHeader className="pb-2 flex-shrink-0 px-3 sm:px-4 pt-3 sm:pt-4">
+                      <CardTitle className="text-sm sm:text-base font-semibold leading-tight line-clamp-2 min-h-[2rem] sm:min-h-[2.5rem]">
                         {service.title}
                       </CardTitle>
                     </CardHeader>
-                    <CardContent className="pt-0 flex-grow px-4 pb-4">
-                      <CardDescription className="text-sm leading-relaxed">
+                    <CardContent className="pt-0 flex-grow px-3 sm:px-4 pb-3 sm:pb-4">
+                      <CardDescription className="text-xs sm:text-sm leading-relaxed">
                         {service.description}
                       </CardDescription>
                     </CardContent>

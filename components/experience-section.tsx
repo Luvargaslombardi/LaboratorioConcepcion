@@ -1,6 +1,6 @@
 export function ExperienceSection() {
   return (
-    <section className="py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-background via-yellow-50/30 to-background relative overflow-hidden">
+    <section id="experience" className="py-16 sm:py-24 lg:py-32 bg-gradient-to-b from-background via-yellow-50/30 to-background relative overflow-hidden">
       {/* Animated gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-yellow-50/40 via-transparent to-yellow-100/30 animate-gradient-pulse"></div>
       

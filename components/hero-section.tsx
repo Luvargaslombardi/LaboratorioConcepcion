@@ -6,7 +6,7 @@ import Image from "next/image"
 
 export function HeroSection() {
   return (
-    <section className="relative bg-gradient-to-br from-background via-background to-muted/20 py-12 lg:py-20">
+    <section id="inicio" className="relative bg-gradient-to-br from-background via-background to-muted/20 py-12 lg:py-20">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div

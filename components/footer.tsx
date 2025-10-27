@@ -4,7 +4,7 @@ export function Footer() {
   return (
     <footer className="bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-6 sm:py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-4">
           
           {/* Left Column - Contact Info */}
           <div className="space-y-3">
@@ -82,7 +82,7 @@ export function Footer() {
           </div>
 
           {/* Right Column - Map */}
-          <div className="h-full min-h-[200px] lg:min-h-[220px]">
+          <div className="h-full min-h-[250px] sm:min-h-[300px] lg:min-h-[220px]">
             <div className="w-full h-full rounded-lg overflow-hidden shadow-lg">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3503.8651851851853!2d-65.5971183!3d-27.3471742!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9423cf5d6020c3c1%3A0xf623d7a905e03404!2sPadre%20Carlos%20Juangorena%201562%2C%20T4146%20Concepci%C3%B3n%2C%20Tucum%C3%A1n!5e0!3m2!1ses!2sar!4v1234567890123!5m2!1ses!2sar"

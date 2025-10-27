@@ -46,7 +46,7 @@ export function ContactSection() {
 
 
   return (
-    <section className="py-16 sm:py-20 lg:py-32 bg-gradient-to-b from-background via-yellow-50/10 to-background relative overflow-hidden">
+    <section id="contact" className="py-16 sm:py-20 lg:py-32 bg-gradient-to-b from-background via-yellow-50/10 to-background relative overflow-hidden">
       {/* Decorative background */}
       <div className="absolute inset-0 opacity-[0.02]">
         <div
@@ -102,9 +102,9 @@ export function ContactSection() {
                 <input type="hidden" name="_template" value="table" />
                 
                 {/* Nombre y Email */}
-                <div className="grid sm:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   <div className="group">
-                    <label htmlFor="nombre" className="text-sm font-semibold mb-3 block text-gray-700 flex items-center gap-2">
+                    <label htmlFor="nombre" className="text-sm font-semibold mb-2 sm:mb-3 block text-gray-700 flex items-center gap-2">
                       <User className={`h-4 w-4 transition-colors ${focusedField === 'nombre' ? 'text-yellow-500' : 'text-gray-400'}`} />
                       Nombre completo <span className="text-red-500">*</span>
                     </label>
@@ -117,14 +117,14 @@ export function ContactSection() {
                         required
                         onFocus={() => setFocusedField('nombre')}
                         onBlur={() => setFocusedField(null)}
-                        className="h-13 pl-11 border-2 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-100 transition-all duration-300"
+                        className="h-12 sm:h-13 pl-11 border-2 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-100 transition-all duration-300 text-sm sm:text-base"
                       />
-                      <User className={`absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 transition-colors ${focusedField === 'nombre' ? 'text-yellow-500' : 'text-gray-400'}`} />
+                      <User className={`absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 transition-colors ${focusedField === 'nombre' ? 'text-yellow-500' : 'text-gray-400'}`} />
                     </div>
                   </div>
                   
                   <div className="group">
-                    <label htmlFor="email" className="text-sm font-semibold mb-3 block text-gray-700 flex items-center gap-2">
+                    <label htmlFor="email" className="text-sm font-semibold mb-2 sm:mb-3 block text-gray-700 flex items-center gap-2">
                       <Mail className={`h-4 w-4 transition-colors ${focusedField === 'email' ? 'text-yellow-500' : 'text-gray-400'}`} />
                       Email <span className="text-red-500">*</span>
                     </label>
@@ -137,16 +137,16 @@ export function ContactSection() {
                         required
                         onFocus={() => setFocusedField('email')}
                         onBlur={() => setFocusedField(null)}
-                        className="h-13 pl-11 border-2 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-100 transition-all duration-300"
+                        className="h-12 sm:h-13 pl-11 border-2 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-100 transition-all duration-300 text-sm sm:text-base"
                       />
-                      <Mail className={`absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 transition-colors ${focusedField === 'email' ? 'text-yellow-500' : 'text-gray-400'}`} />
+                      <Mail className={`absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 transition-colors ${focusedField === 'email' ? 'text-yellow-500' : 'text-gray-400'}`} />
                     </div>
                   </div>
                 </div>
 
                 {/* Teléfono */}
                 <div className="group">
-                  <label htmlFor="telefono" className="text-sm font-semibold mb-3 block text-gray-700 flex items-center gap-2">
+                  <label htmlFor="telefono" className="text-sm font-semibold mb-2 sm:mb-3 block text-gray-700 flex items-center gap-2">
                     <Phone className={`h-4 w-4 transition-colors ${focusedField === 'telefono' ? 'text-yellow-500' : 'text-gray-400'}`} />
                     Teléfono <span className="text-red-500">*</span>
                   </label>
@@ -159,15 +159,15 @@ export function ContactSection() {
                       required
                       onFocus={() => setFocusedField('telefono')}
                       onBlur={() => setFocusedField(null)}
-                      className="h-13 pl-11 border-2 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-100 transition-all duration-300"
+                      className="h-12 sm:h-13 pl-11 border-2 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-100 transition-all duration-300 text-sm sm:text-base"
                     />
-                    <Phone className={`absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 transition-colors ${focusedField === 'telefono' ? 'text-yellow-500' : 'text-gray-400'}`} />
+                    <Phone className={`absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 transition-colors ${focusedField === 'telefono' ? 'text-yellow-500' : 'text-gray-400'}`} />
                   </div>
                 </div>
 
                 {/* Mensaje */}
                 <div className="group">
-                  <label htmlFor="mensaje" className="text-sm font-semibold mb-3 block text-gray-700 flex items-center gap-2">
+                  <label htmlFor="mensaje" className="text-sm font-semibold mb-2 sm:mb-3 block text-gray-700 flex items-center gap-2">
                     <MessageSquare className={`h-4 w-4 transition-colors ${focusedField === 'mensaje' ? 'text-yellow-500' : 'text-gray-400'}`} />
                     Mensaje <span className="text-red-500">*</span>
                   </label>
@@ -177,12 +177,12 @@ export function ContactSection() {
                       name="mensaje"
                       placeholder="Escribí tu consulta aquí..."
                       required
-                      rows={6}
+                      rows={4}
                       onFocus={() => setFocusedField('mensaje')}
                       onBlur={() => setFocusedField(null)}
-                      className="pl-11 pt-4 border-2 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-100 resize-none transition-all duration-300"
+                      className="pl-11 pt-4 border-2 focus:border-yellow-400 focus:ring-2 focus:ring-yellow-100 resize-none transition-all duration-300 text-sm sm:text-base"
                     />
-                    <MessageSquare className={`absolute left-3 top-4 h-5 w-5 transition-colors ${focusedField === 'mensaje' ? 'text-yellow-500' : 'text-gray-400'}`} />
+                    <MessageSquare className={`absolute left-3 top-4 h-4 w-4 sm:h-5 sm:w-5 transition-colors ${focusedField === 'mensaje' ? 'text-yellow-500' : 'text-gray-400'}`} />
                   </div>
                 </div>
 
