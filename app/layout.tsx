@@ -6,7 +6,7 @@ import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import "./globals.css"
-//esta parte es para los fuentes de la pagina
+//esta parte es para los fuentes de la paginaa
 const montserrat = Montserrat({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
@@ -28,6 +28,34 @@ export const metadata: Metadata = {
   keywords:
     "laboratorio, análisis clínicos, Concepción, Tucumán, Dra. Marcia Lombardi, análisis de sangre, prueba dengue",
   generator: "v0.app",
+  icons: {
+    icon: [
+      {
+        url: "/Logo de Laboratorio Concepcion.png",
+        sizes: "32x32",
+        type: "image/png",
+      },
+      {
+        url: "/Logo de Laboratorio Concepcion.png",
+        sizes: "16x16",
+        type: "image/png",
+      },
+    ],
+    apple: [
+      {
+        url: "/Logo de Laboratorio Concepcion.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+    ],
+    other: [
+      {
+        rel: "icon",
+        url: "/Logo de Laboratorio Concepcion.png",
+        sizes: "any",
+      },
+    ],
+  },
 }
 
 export default function RootLayout({
